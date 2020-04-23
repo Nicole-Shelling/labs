@@ -18,12 +18,22 @@ int Search(int *pBegin, int* pEnd,int Value)
 	return pBegin-Begin;
 
 };
-void QuickSort(int* pBegin, int* pEnd)
+void QuickSort(int* pBegin, int Begin,int End)
 {
-	int* l = pBegin;
-	int* r = pEnd;
-	int number = (pEnd - pBegin) / 2;
-	int* current = pBegin;
+	int* currBeg = pBegin;
+	for (int i = 0; i < Begin; i++)
+	{
+		currBeg++;
+	}
+	int* currEnd = pBegin;
+	for (int i = 0; i < End; i++)
+	{
+		currEnd++;
+	}
+	int* l = currBeg;
+	int* r = currEnd;
+	int number = (currEnd - currBeg) / 2;
+	int* current = currBeg;
 	for (int i = 0; i < number; i++)
 	{
 		current++;
@@ -43,13 +53,23 @@ void QuickSort(int* pBegin, int* pEnd)
 		}		
 	} while (l <= r);
 
-	if (l < pEnd) QuickSort(l,pEnd);
-	if (r > pBegin) QuickSort(pBegin,r);
+	if (l < currEnd) QuickSort(pBegin,l-pBegin,currEnd-pBegin);
+	if (r > currBeg) QuickSort(pBegin, currBeg-pBegin,r-pBegin);
 }
-void QuickSort2(int* pBegin, int* pEnd)
+void QuickSort2(int* pBegin, int Begin, int End)
 {
+	int* currBeg = pBegin;
+	for (int i = 0; i < Begin; i++)
+	{
+		currBeg++;
+	}
+	int* currEnd = pBegin;
+	for (int i = 0; i < End; i++)
+	{
+		currEnd++;
+	}
 	vector<tuple<int*, int*>> stack;
-	tuple<int*, int*> arr(pBegin, pEnd);
+	tuple<int*, int*> arr(currBeg, currEnd);
 	stack.push_back(arr);
 	while (!stack.empty())
 	{
@@ -143,8 +163,7 @@ int main()
 	else cout << endl << Result;
 	//QuickSort1
 	int* pBegin2 = &Array[0];
-	int* pEnd2 = &Array[N-1];
-	QuickSort(pBegin2, pEnd2);
+	QuickSort(pBegin2, 0, N-1);
 	cout <<endl<< "QuickSort Array" << endl;
 	for (int i = 0;i < N;i++)
 	{
@@ -153,7 +172,7 @@ int main()
 	//QuickSort2
 	int* pBegin3 = &Array[0];
 	int* pEnd3 = &Array[N - 1];
-	QuickSort2(pBegin3, pEnd3);
+	QuickSort2(pBegin3, 0, N-1);
 	cout << endl << "QuickSort2 Array" << endl;
 	for (int i = 0;i < N;i++)
 	{
